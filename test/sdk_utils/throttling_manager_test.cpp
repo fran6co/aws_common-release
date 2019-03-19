@@ -18,6 +18,7 @@
 
 #include <atomic>
 #include <thread>
+#include <cmath>
 
 enum class DummyClientErrors { THROTTLING_ERROR };
 typedef Aws::Utils::Outcome<int, Aws::Client::AWSError<DummyClientErrors>> DummyOutcome;
@@ -27,10 +28,10 @@ class BaseClient
 public:
   virtual DummyOutcome ThrottledFunction(int number) const
   {
-    throttled_function_call_count++;
+    throttled_function_call_count_++;
     return DummyOutcome(number);
   }
-  mutable std::atomic<int> throttled_function_call_count{0};
+  mutable std::atomic<int> throttled_function_call_count_{0};
 };
 
 class ThrottledClient : public BaseClient, Aws::Client::ThrottlingManager
@@ -42,14 +43,14 @@ public:
   }
   DummyOutcome ThrottledFunction() const
   {
-    throttled_function_call_count++;
+    throttled_function_call_count_++;
     auto base_func = [this](int number) -> DummyOutcome {
       return this->BaseClient::ThrottledFunction(number);
     };
     return MakeCall<DummyOutcome, int, DummyClientErrors>(
       base_func, 0, __func__, DummyClientErrors::THROTTLING_ERROR, true);
   }
-  mutable std::atomic<int> throttled_function_call_count{0};
+  mutable std::atomic<int> throttled_function_call_count_{0};
 };
 
 TEST(ThrottlingManagerTest, simpleThrottling)
@@ -67,7 +68,7 @@ TEST(ThrottlingManagerTest, simpleThrottling)
   max_tps *= 2;
   int succesful_outcomes = 0;
   for (int idx = 0; idx < api_call_count; idx++) {
-    int call_count_before = throttled_client.BaseClient::throttled_function_call_count;
+    int call_count_before = throttled_client.BaseClient::throttled_function_call_count_;
     auto outcome = throttled_client.ThrottledFunction();
     if (outcome.IsSuccess()) {
       succesful_outcomes++;
@@ -109,7 +110,7 @@ void MakeCalls(ThrottledClient * throttled_client, std::chrono::milliseconds dur
  */
 TEST(ThrottlingManagerTest, multiThreadedClientThrottling)
 {
-  int milliseconds_to_run = 3500, sleep_duration_in_us = 150, max_tps = 125;
+  const int milliseconds_to_run = 3500, sleep_duration_in_us = 150, max_tps = 125;
   int threads_to_spawn = std::max((unsigned int)2, std::thread::hardware_concurrency());
   ThrottledClient throttled_client(max_tps);
   std::vector<std::thread> threads;
@@ -121,8 +122,8 @@ TEST(ThrottlingManagerTest, multiThreadedClientThrottling)
   for (auto & t : threads) {
     t.join();
   }
-  int expected_non_throttled_call_count = max_tps * milliseconds_to_run / 1000;
-  ASSERT_LE(throttled_client.BaseClient::throttled_function_call_count,
+  int expected_non_throttled_call_count = std::ceil(max_tps * milliseconds_to_run / (float) 1000);
+  ASSERT_LE(throttled_client.BaseClient::throttled_function_call_count_,
             expected_non_throttled_call_count);
 }
 
