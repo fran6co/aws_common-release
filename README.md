@@ -1,3 +1,26 @@
+## aws_common (kinetic) - 2.0.0-2
+
+The packages in the `aws_common` repository were released into the `kinetic` distro by running `/usr/local/bin/bloom-release aws_common --track kinetic --rosdistro kinetic -e` on `Thu, 21 Mar 2019 22:08:30 -0000`
+
+The `aws_common` package was released.
+
+Version of package(s) in repository `aws_common`:
+
+- upstream repository: https://github.com/aws-robotics/utils-common.git
+- release repository: https://github.com/aws-gbp/aws_common-release.git
+- rosdistro version: `2.0.0-1`
+- old version: `2.0.0-1`
+- new version: `2.0.0-2`
+
+Versions of tools used:
+
+- bloom version: `0.7.2`
+- catkin_pkg version: `0.4.9`
+- rosdep version: `0.15.1`
+- rosdistro version: `0.7.0`
+- vcstools version: `0.1.40`
+
+
 ## aws_common (melodic) - 2.0.0-1
 
 The packages in the `aws_common` repository were released into the `melodic` distro by running `/usr/local/bin/bloom-release aws_common --track melodic --rosdistro melodic -e` on `Wed, 20 Mar 2019 00:08:17 -0000`
