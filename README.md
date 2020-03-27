@@ -14,6 +14,7 @@ The source code is released under an [Apache 2.0].
 ### Supported ROS Distributions
 - Kinetic
 - Melodic
+- Dashing
 
 ### Build status
 * Travis CI:
@@ -22,7 +23,7 @@ The source code is released under an [Apache 2.0].
 * ROS build farm:
     * ROS Kinetic @ u16.04 Xenial [![Build Status](http://build.ros.org/job/Kbin_uX64__aws_common__ubuntu_xenial_amd64__binary/badge/icon)](http://build.ros.org/job/Kbin_uX64__aws_common__ubuntu_xenial_amd64__binary)
     * ROS Melodic @ u18.04 Bionic [![Build Status](http://build.ros.org/job/Mbin_uB64__aws_common__ubuntu_bionic_amd64__binary/badge/icon)](http://build.ros.org/job/Mbin_uB64__aws_common__ubuntu_bionic_amd64__binary)
-
+    * ROS Dashing @ u18.04 Bionic [![Build Status](http://build.ros2.org/job/Dbin_uB64__aws_common__ubuntu_bionic_amd64__binary/badge/icon)](http://build.ros2.org/job/Dbin_uB64__aws_common__ubuntu_bionic_amd64__binary)
 
 ## Installation
 
@@ -35,6 +36,8 @@ On Ubuntu you can install the latest released version of this package using the 
 ### Building from Source
 
 To build from source you'll need to create a new workspace, clone and checkout the latest release branch of this repository, install all the dependencies, and compile. If you need the latest development features you can clone from the `master` branch instead of the latest release branch. While we guarantee the release branches are stable, __the `master` should be considered to have an unstable build__ due to ongoing development. 
+
+- Install build tool: please refer to `colcon` [installation guide](https://colcon.readthedocs.io/en/released/user/installation.html)
 
 - Create a ROS workspace and a source directory
 
@@ -59,7 +62,7 @@ _Note: If building the master branch instead of a release branch you may need to
 
 - Configure ROS library path
 
-        source ~/ros-workspace/install/setup.bash
+        source ~/ros-workspace/install/local_setup.bash
 
 
 [Amazon Web Services (AWS)]: https://aws.amazon.com/
