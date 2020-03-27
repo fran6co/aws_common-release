@@ -2,8 +2,17 @@
 Changelog for package aws_common
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2.1.0 (2019-07-24)
+2.2.0 (2020-03-27)
 ------------------
+* Update package.xml
+  https://github.com/aws-robotics/utils-common/pull/52 adds a new feature for expanding file paths
+* Fix linting issues found by clang-tidy 6.0 (`#53 <https://github.com/aws-robotics/utils-common/issues/53>`_)
+  * fix linter errors
+  * fix more linter errors
+  * add linter exceptions
+  * address PR comments
+* Add wordexp_ros wrapper for wordexp, allowing ROS-aware path expansion
+* Add buildtool dependency on ament_cmake_gtest/gmock
 * Update DefineTestMacros.cmake
 * Add NoRetryStrategy (`#38 <https://github.com/aws-robotics/utils-common/issues/38>`_)
   * ROS-2222: Add Configuration For Retry Strategy
@@ -31,7 +40,7 @@ Changelog for package aws_common
   Signed-off-by: Miaofei <miaofei@amazon.com>
   * make catkin a buildtool_depend
   Signed-off-by: Miaofei <miaofei@amazon.com>
-* Contributors: AAlon, M. M, Ross Desmond
+* Contributors: AAlon, Avishay Alon, M. M, Miaofei Mei, Ross Desmond, Ryan Newell
 
 2.0.0 (2019-02-25)
 ------------------
