@@ -1,3 +1,26 @@
+## aws_common (noetic) - 2.2.0-3
+
+The packages in the `aws_common` repository were released into the `noetic` distro by running `/usr/bin/bloom-release aws_common --track noetic --rosdistro noetic -e` on `Mon, 01 Feb 2021 14:07:55 -0000`
+
+The `aws_common` package was released.
+
+Version of package(s) in repository `aws_common`:
+
+- upstream repository: https://github.com/aws-robotics/utils-common.git
+- release repository: unknown
+- rosdistro version: `null`
+- old version: `2.2.0-2`
+- new version: `2.2.0-3`
+
+Versions of tools used:
+
+- bloom version: `0.10.0`
+- catkin_pkg version: `0.4.23`
+- rosdep version: `0.20.0`
+- rosdistro version: `0.8.3`
+- vcstools version: `0.1.42`
+
+
 ## aws_common (noetic) - 2.2.0-2
 
 The packages in the `aws_common` repository were released into the `noetic` distro by running `/usr/bin/bloom-release aws_common --track noetic --rosdistro noetic -e` on `Mon, 01 Feb 2021 14:04:37 -0000`
