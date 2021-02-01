@@ -96,5 +96,5 @@ tracks:
     release_tag: :{version}
     ros_distro: noetic
     vcs_type: git
-    vcs_uri: https://github.com/fran6co/utils-common.git
+    vcs_uri: https://github.com/aws-robotics/utils-common.git
     version: :{auto}
