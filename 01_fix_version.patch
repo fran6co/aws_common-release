@@ -1,0 +1,42 @@
+Index: ros-noetic-aws-common/awssdk/CMakeLists.txt
+===================================================================
+--- ros-noetic-aws-common.orig/awssdk/CMakeLists.txt
++++ ros-noetic-aws-common/awssdk/CMakeLists.txt
+@@ -1,7 +1,7 @@
+ cmake_minimum_required(VERSION 3.0.2)
+ project(AWSSDK)
+-set(AWSSDK_VERSION 1.6.53)
+-set(AWSSDK_MD5 8c04cd7a0670bc4a0cdcbb2f416efa7a)
++set(AWSSDK_VERSION 1.8.85)
++set(AWSSDK_MD5 889124168bfa13bf0c70c09c36c7ff36)
+ 
+ if(NOT EXTERNAL_INSTALL_LOCATION)
+   set(EXTERNAL_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/external)
+Index: ros-noetic-aws-common/src/sdk_utils/aws_profile_provider.cpp
+===================================================================
+--- ros-noetic-aws-common.orig/src/sdk_utils/aws_profile_provider.cpp
++++ ros-noetic-aws-common/src/sdk_utils/aws_profile_provider.cpp
+@@ -28,7 +28,7 @@ AWSProfileProvider::AWSProfileProvider()
+ {
+   config_file_loader_ =
+     std::shared_ptr<AWSProfileConfigLoader>(Aws::MakeShared<AWSConfigFileProfileConfigLoader>(
+-      kProfileLogTag, GetConfigProfileFilename(), true));
++      kProfileLogTag, Aws::Auth::GetConfigProfileFilename(), true));
+   config_file_loader_->Load();
+   credentials_file_loader_ =
+     std::shared_ptr<AWSProfileConfigLoader>(Aws::MakeShared<AWSConfigFileProfileConfigLoader>(
+Index: ros-noetic-aws-common/src/sdk_utils/client_configuration_provider.cpp
+===================================================================
+--- ros-noetic-aws-common.orig/src/sdk_utils/client_configuration_provider.cpp
++++ ros-noetic-aws-common/src/sdk_utils/client_configuration_provider.cpp
+@@ -141,7 +141,9 @@ ClientConfiguration ClientConfigurationP
+   reader_->ReadParam(ParameterPath(CLIENT_CONFIG_PREFIX, "use_dual_stack"), config.useDualStack);
+   reader_->ReadParam(ParameterPath(CLIENT_CONFIG_PREFIX, "enable_clock_skew_adjustment"),
+                     config.enableClockSkewAdjustment);
+-  reader_->ReadParam(ParameterPath(CLIENT_CONFIG_PREFIX, "follow_redirects"), config.followRedirects);
++  bool followRedirects;
++  reader_->ReadParam(ParameterPath(CLIENT_CONFIG_PREFIX, "follow_redirects"), followRedirects);
++  config.followRedirects = followRedirects ? Aws::Client::FollowRedirectsPolicy::ALWAYS : Aws::Client::FollowRedirectsPolicy::NEVER;
+   reader_->ReadParam(ParameterPath(CLIENT_CONFIG_PREFIX, "verify_SSL"), config.verifySSL);
+ 
+   // check for non-default strategy
